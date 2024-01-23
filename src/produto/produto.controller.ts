@@ -18,33 +18,33 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { ResultadoDto } from 'src/dto/resultado.dto';
 import { TokenService } from 'src/token/token.service';
 import { Usuario } from 'src/usuario/usuario.entity';
-import { ServicoCadastrarDto } from './dto/servico.cadastrar.dto';
-import { ServicoService } from './servico.service';
-import { Servico } from './servico.entity';
+import { ProdutoCadastrarDto } from './dto/produto.cadastrar.dto';
+import { ProdutoService } from './produto.service';
+import { Produto } from './produto.entity';
 
-@Controller('servico')
-export class ServicoController {
+@Controller('produto')
+export class ProdutoController {
   constructor(
-    private readonly servicoService: ServicoService,
+    private readonly produtoService: ProdutoService,
     private readonly tokenService: TokenService,
   ) {}
 
   @UseGuards(JwtAuthGuard)
   @Get('listar')
-  async listar(): Promise<Servico[]> {
-    return this.servicoService.listar();
+  async listar(): Promise<Produto[]> {
+    return this.produtoService.listar();
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('cadastrar')
   async cadastrar(
-    @Body() data: ServicoCadastrarDto,
+    @Body() data: ProdutoCadastrarDto,
     @Req() req,
   ): Promise<ResultadoDto> {
     let token = req.headers.authorization;
     let usuario: Usuario = await this.tokenService.getUsuarioByToken(token);
     if (usuario) {
-      return this.servicoService.cadastrar(data, usuario);
+      return this.produtoService.cadastrar(data, usuario);
     } else {
       throw new HttpException(
         {
@@ -57,7 +57,7 @@ export class ServicoController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async deleteServico(@Param('id') id: number) {
-    return this.servicoService.deleteServico(id);
+  async deleteProduto(@Param('id') id: number) {
+    return this.produtoService.deleteProduto(id);
   }
 }

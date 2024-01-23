@@ -1,3 +1,4 @@
+import { Produto } from 'src/produto/produto.entity';
 import { Servico } from 'src/servico/servico.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
@@ -23,4 +24,7 @@ export class Usuario {
 
   @OneToMany(() => Servico, (servico) => servico.usuario)
   servicos: Servico[];
+
+  @OneToMany(() => Produto, (produto) => produto.usuario)
+  produtos: Produto[];
 }

@@ -2,7 +2,7 @@ import { Usuario } from 'src/usuario/usuario.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
-export class Servico {
+export class Produto {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,9 +15,6 @@ export class Servico {
   @Column()
   valor: number;
 
-  @Column({ length: 50 })
-  estado: string;
-
-  @ManyToOne(() => Usuario, (usuario) => usuario.servicos)
+  @ManyToOne(() => Usuario, (usuario) => usuario.produtos)
   usuario: Usuario;
 }
